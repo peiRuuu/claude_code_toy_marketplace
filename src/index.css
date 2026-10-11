@@ -11,30 +11,30 @@
   :root {
     /* Marketplace Brand Colors */
     --marketplace-bg: 32 23% 96%;          /* #f8f4f1 */
-    --marketplace-blue: 194 57% 51%;        /* #3CA4C7 - RGB(60,164,199) */
+    --marketplace-purple: 270 57% 51%;      /* #823BC9 - RGB(130,59,201) */
     --marketplace-dark: 0 0% 27%;           /* #444444 */
     --marketplace-white: 0 0% 100%;         /* #ffffff */
     
     /* Semantic Design Tokens */
     --background: var(--marketplace-bg);
-    --foreground: var(--marketplace-blue);
-    --primary: var(--marketplace-blue);
+    --foreground: var(--marketplace-purple);
+    --primary: var(--marketplace-purple);
     --primary-foreground: var(--marketplace-white);
     --secondary: var(--marketplace-dark);
-    --secondary-foreground: var(--marketplace-blue);
+    --secondary-foreground: var(--marketplace-purple);
     --muted: var(--marketplace-bg);
-    --muted-foreground: var(--marketplace-blue);
-    --accent: var(--marketplace-blue);
+    --muted-foreground: var(--marketplace-purple);
+    --accent: var(--marketplace-purple);
     --accent-foreground: var(--marketplace-white);
-    --border: var(--marketplace-blue);
+    --border: var(--marketplace-purple);
     --input: var(--marketplace-bg);
-    --ring: var(--marketplace-blue);
+    --ring: var(--marketplace-purple);
     --destructive: 0 84% 60%;
     --destructive-foreground: var(--marketplace-white);
     --card: var(--marketplace-bg);
-    --card-foreground: var(--marketplace-blue);
+    --card-foreground: var(--marketplace-purple);
     --popover: var(--marketplace-bg);
-    --popover-foreground: var(--marketplace-blue);
+    --popover-foreground: var(--marketplace-purple);
     
     /* Spacing & Layout */
     --radius: 1.375rem; /* 22px */
@@ -48,24 +48,24 @@
 
   .dark {
     --background: var(--marketplace-bg);
-    --foreground: var(--marketplace-blue);
-    --primary: var(--marketplace-blue);
+    --foreground: var(--marketplace-purple);
+    --primary: var(--marketplace-purple);
     --primary-foreground: var(--marketplace-white);
     --secondary: var(--marketplace-dark);
-    --secondary-foreground: var(--marketplace-blue);
+    --secondary-foreground: var(--marketplace-purple);
     --muted: var(--marketplace-bg);
-    --muted-foreground: var(--marketplace-blue);
-    --accent: var(--marketplace-blue);
+    --muted-foreground: var(--marketplace-purple);
+    --accent: var(--marketplace-purple);
     --accent-foreground: var(--marketplace-white);
-    --border: var(--marketplace-blue);
+    --border: var(--marketplace-purple);
     --input: var(--marketplace-bg);
-    --ring: var(--marketplace-blue);
+    --ring: var(--marketplace-purple);
     --destructive: 0 84% 60%;
     --destructive-foreground: var(--marketplace-white);
     --card: var(--marketplace-bg);
-    --card-foreground: var(--marketplace-blue);
+    --card-foreground: var(--marketplace-purple);
     --popover: var(--marketplace-bg);
-    --popover-foreground: var(--marketplace-blue);
+    --popover-foreground: var(--marketplace-purple);
   }
 }
 

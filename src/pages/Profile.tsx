@@ -122,7 +122,7 @@ const Profile = () => {
       
       // Navigate after a short delay
       setTimeout(() => {
-        window.location.href = '/'; // Use direct location change instead of navigate
+        window.location.href = import.meta.env.BASE_URL; // Use direct location change instead of navigate
       }, 100);
       
     } catch (error) {

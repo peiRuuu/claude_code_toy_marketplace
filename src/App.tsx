@@ -25,7 +25,7 @@ const App = () => (
       <PresenceProvider>
         <Toaster />
         <Sonner />
-        <BrowserRouter>
+        <BrowserRouter basename={import.meta.env.BASE_URL}>
           <Routes>
             <Route path="/" element={<Categories />} />
             <Route path="/create-listing" element={<CreateListing />} />

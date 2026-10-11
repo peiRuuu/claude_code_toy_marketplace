@@ -43,7 +43,7 @@ export const ResetPasswordForm = ({ onBack }: ResetPasswordFormProps) => {
 
     try {
       const { error } = await supabase.auth.resetPasswordForEmail(values.email, {
-        redirectTo: `${window.location.origin}/auth?mode=reset`,
+        redirectTo: `${window.location.origin}${import.meta.env.BASE_URL}auth?mode=reset`,
       });
 
       if (error) {
