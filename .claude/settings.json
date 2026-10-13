@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "Notification": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/notification_hook.ts\" --sound_effect_file \"$CLAUDE_PROJECT_DIR/.claude/hooks/jingles_STEEL00.wav\""
+          }
+        ]
+      }
+    ]
+  }
+}

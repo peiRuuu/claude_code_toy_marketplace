@@ -5,7 +5,12 @@
  */
 
 import { appendFileSync } from 'fs';
-import { execSync } from 'child_process';
+import { execSync, execFileSync } from 'child_process';
+import { dirname, join, resolve } from 'path';
+import { fileURLToPath, pathToFileURL } from 'url';
+
+// Resolve paths from this script's folder, not the cwd (Claude's cwd changes after `cd`)
+const HOOK_DIR = dirname(fileURLToPath(import.meta.url));
 
 interface NotificationHookInput {
   notification_type: string;
@@ -19,7 +24,7 @@ interface HookResponse {
 }
 
 function logDebug(message: string): void {
-  const logPath = '.claude/hooks/notification_hook_debug.log';
+  const logPath = join(HOOK_DIR, 'notification_hook_debug.log');
   const timestamp = new Date().toISOString();
   const logEntry = `[${timestamp}] ${message}\n`;
   appendFileSync(logPath, logEntry);
@@ -28,10 +33,29 @@ function logDebug(message: string): void {
 function playNotificationSound(soundFile: string): boolean {
   try {
     logDebug(`Playing notification sound: ${soundFile}`);
-    execSync(`afplay ${soundFile}`, {
-      stdio: 'pipe',
-      timeout: 5000 // 5 second timeout
-    });
+    if (process.platform === 'win32') {
+      // Windows has no afplay; use WPF MediaPlayer via PowerShell (supports mp3/wav)
+      const uri = pathToFileURL(resolve(soundFile)).href;
+      const script = [
+        'Add-Type -AssemblyName PresentationCore',
+        '$p = New-Object System.Windows.Media.MediaPlayer',
+        `$p.Open([Uri]'${uri.replace(/'/g, "''")}')`,
+        '$p.Play()',
+        '$i = 0; while (-not $p.NaturalDuration.HasTimeSpan -and $i -lt 30) { Start-Sleep -Milliseconds 100; $i++ }',
+        'if (-not $p.NaturalDuration.HasTimeSpan) { throw "Cannot load sound file" }',
+        'Start-Sleep -Milliseconds ([int]$p.NaturalDuration.TimeSpan.TotalMilliseconds)',
+        '$p.Close()'
+      ].join('; ');
+      execFileSync('powershell', ['-NoProfile', '-NonInteractive', '-Command', script], {
+        stdio: 'pipe',
+        timeout: 10000 // PowerShell startup is slower than afplay
+      });
+    } else {
+      execSync(`afplay ${soundFile}`, {
+        stdio: 'pipe',
+        timeout: 5000 // 5 second timeout
+      });
+    }
     logDebug('Notification sound played successfully');
     return true;
   } catch (error) {
@@ -118,6 +142,7 @@ function main(): void {
   }
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
+// pathToFileURL handles Windows paths (C:\... -> file:///C:/...)
+if (import.meta.url === pathToFileURL(process.argv[1]).href) {
   main();
 }
